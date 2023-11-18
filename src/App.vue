@@ -7,12 +7,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import '@fortawesome/fontawesome-free/css/all.css';
 
 export default defineComponent({
-  name: "App",
-  // components: {
-  //   HelloWorld
-  // }
+  name: "App"
 });
 </script>
 
