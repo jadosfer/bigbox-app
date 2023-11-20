@@ -4,7 +4,7 @@
       :to="{ name: 'ActivityDetail', params: { id: activity.id } }"
       class="card-body"
       style="text-decoration: none; color: inherit"
-    >
+    >    
       <img :src="imageSrc" class="card-img-top" alt="Activity Image" />
       <div class="activity-details">
         <h3 class="card-title title">{{ activity.title }}</h3>
@@ -18,9 +18,8 @@
         <p class="card-text description">
           {{ JSON.parse(this.activity.activity).description }}
         </p>
-        <p class="card-text points">
-          {{ activity.points }} puntos
-        </p>
+        <p class="card-text points">{{ activity.points }} puntos</p>
+        <p class="card-text participants">Participantes: {{JSON.parse(this.activity.activity).participants}}</p>
       </div>
     </router-link>
   </div>
@@ -56,14 +55,14 @@ export default defineComponent({
 }
 
 .card-img-top {
-  width: 100%;
-  height: 200px; /* Altura fija para la imagen */
+  width: 369px;
+  height: 240px; /* Altura fija para la imagen */
   object-fit: cover;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
 }
 
-.title, .points {
+.title,
+.points .participants {
   font-family: "Quicksand", sans-serif;
   font-size: 18px;
   color: #464646;
@@ -80,6 +79,4 @@ export default defineComponent({
   font-size: 14px;
   color: #464646;
 }
-
-
 </style>

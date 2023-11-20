@@ -1,39 +1,30 @@
 <template>
-  <div class="activity-list">
-    <activity-card
-      v-for="activity in activities"
-      :key="activity.id"
-      :activity="activity"
-      class="col-md-4"
-    ></activity-card>
+  <div>
+    <div class="activity-list">
+      <activity-card
+        v-for="activity in activities"
+        :key="activity.id"
+        :activity="activity"
+        class="col-md-4"
+      ></activity-card>
+    </div>    
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
-import { fetchActivities } from "../api/activities";
+import { defineComponent, PropType } from "vue";
 import ActivityCard from "./ActivityCard.vue";
 
 export default defineComponent({
   components: {
     ActivityCard,
   },
-  setup() {
-    const activities = ref([]);
-
-    onMounted(async () => {
-      try {
-        const data = await fetchActivities(1, 9); // Obtiene las actividades de la primera página
-        activities.value = data; // Actualiza la lista de actividades
-      } catch (error) {
-        // Manejo de errores
-      }
-    });
-
-    return {
-      activities,
-    };
-  },
+  props: {
+    activities: {
+      type: Array as PropType<any[]>,
+      required: true,
+    },
+  },  
 });
 </script>
 
