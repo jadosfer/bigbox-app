@@ -4,9 +4,10 @@
       <activity-card
         v-for="activity in activities"
         :key="activity.id"
-        :activity="activity"       
+        :data="activity"       
+        :activity="JSON.parse(activity.activity)" 
       />
-    </div>    
+    </div>
   </div>
 </template>
 

@@ -15,6 +15,10 @@
         </router-link>
         <ActivityCarousel :imageArray="imgArray" />
         <InfoIncluded :activity="activity" />
+        <div class="title">
+          <h3>Otras actividades similares:</h3>
+        </div>
+        <SimilarActivities :details="details" :activity="activity" />
       </div>
       <div class="right-half">
         <ActivityDetail :details="details" :activity="activity" />
@@ -28,6 +32,7 @@ import { defineComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import ActivityDetail from "../components/ActivityDetail.vue";
 import InfoIncluded from "../components/InfoIncluded.vue";
+import SimilarActivities from "../components/SimilarActivities.vue";
 import ActivityCarousel from "../components/ActivityCarousel.vue";
 import { fetchActivityDetails } from "../api/activities";
 
@@ -36,6 +41,7 @@ export default defineComponent({
     ActivityDetail,
     ActivityCarousel,
     InfoIncluded,
+    SimilarActivities,
   },
   setup() {
     const route = useRoute();
@@ -107,5 +113,13 @@ export default defineComponent({
 
 .arrow-icon {
   margin-left: -300px;
+}
+
+.title {
+  margin-left: -300px;
+  margin-top: 80px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  
 }
 </style>

@@ -46,7 +46,6 @@ export default defineComponent({
   computed: {
     dynamicMargin() {
       const marginLeft = this.activity.participants*12
-      // Calcula el valor de la variable CSS basado en la prop
       return `${marginLeft}px`;
     },
   },

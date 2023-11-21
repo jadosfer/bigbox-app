@@ -5,12 +5,12 @@
         <h3>¿Qué incluye?</h3>
       </div>
       <div class="benefits" v-html="activity.benefits"></div>
-      <div class="content-rules">
+      <div>
         <h4 class="title">
-          <img class="doc" src="@/assets/icons/doc-icon.svg" alt="Mi icono" />
+          <img class="doc" src="@/assets/icons/doc-icon.svg" />
           Reglas
         </h4>
-        <div v-html="activity.small_print"></div>
+        <div class="rules" v-html="activity.small_print"></div>
       </div>
     </div>
   </div>
@@ -66,12 +66,17 @@ export default defineComponent({
 }
 
 .title {
-    display: flex; /* Usa flexbox para el diseño */
-    align-items: center; /* Alinea los elementos verticalmente al centro */
+  display: flex;
+  align-items: center;
+  font-size: 22px;
 }
 
 .title img {
-    margin-right: 10px; /* Ajusta el espacio entre el icono y el texto */
+  margin-right: 10px;
 }
 
+.benefits,
+.rules {
+  font-size: 18px;
+}
 </style>
