@@ -45,7 +45,12 @@
           <li
             :class="{ 'page-item': true, disabled: currentPage === totalPages }"
           >
-            <a class="page-link next-link" href="#" aria-label="Next" @click="nextPage">
+            <a
+              class="page-link next-link"
+              href="#"
+              aria-label="Next"
+              @click="nextPage"
+            >
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
@@ -55,8 +60,10 @@
     <div class="row">
       <div class="col d-flex justify-content-end">
         <p class="result-text">
-          {{ currentPage * 9 - 8 }}-{{ currentPage * 9 > totalCount ? totalCount : currentPage * 9 }} de
-          {{ totalCount }} resultados
+          {{ currentPage * 9 - 8 }}-{{
+            currentPage * 9 > totalCount ? totalCount : currentPage * 9
+          }}
+          de {{ totalCount }} resultados
         </p>
       </div>
     </div>
@@ -68,7 +75,10 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {
-    currentPage: Number,
+    currentPage: {
+      type: Number,
+      default: 1,
+    },
     totalPages: Number,
     maxPages: Number,
     totalCount: Number,
@@ -115,30 +125,30 @@ export default defineComponent({
 } */
 
 .page-link {
-  border: 3px solid #fff;  
+  border: 3px solid #fff;
   color: black;
   background-color: #fff; /* Color de fondo del círculo */
   text-decoration: none; /* Eliminar subrayado del enlace */
-  display: inline-block; 
+  display: inline-block;
   line-height: 0.5 !important;
   font-size: 18px; /* Tamaño de fuente para los números */
-  font-family: "Quicksand", sans-serif; 
+  font-family: "Quicksand", sans-serif;
   border: 5px solid #fff;
-  padding: 8px 8px; 
-  border-radius: 100%;  
+  padding: 8px 8px;
+  border-radius: 100%;
 }
 
-
-
-.active-link, .next-link, .prev-link {
-  border: 3px solid #ff6c5e;  
+.active-link,
+.next-link,
+.prev-link {
+  border: 3px solid #ff6c5e;
   color: white !important; /* Color del texto */
   background-color: #ff6c5e; /* Color de fondo del círculo */
   text-decoration: none; /* Eliminar subrayado del enlace */
   display: inline-block; /* Permitir que el contenido defina el tamaño */
   line-height: 0.5 !important;
   font-size: 18px; /* Tamaño de fuente para los números */
-  font-family: "Quicksand", sans-serif;  
+  font-family: "Quicksand", sans-serif;
   margin-left: 10px;
   margin-right: 10px;
 }

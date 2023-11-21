@@ -1,25 +1,39 @@
 <template>
-  <div class="activity-item card">
+  <div class="activity-item">
     <router-link
       :to="{ name: 'ActivityDetail', params: { id: activity.id } }"
-      class="card-body"
       style="text-decoration: none; color: inherit"
-    >    
+    >
       <img :src="imageSrc" class="card-img-top" alt="Activity Image" />
-      <div class="activity-details">
-        <h3 class="card-title title">{{ activity.title }}</h3>
-        <div class="location">
-          <i class="fas fa-map-marker-alt icon-red"></i>
+      <div>
+        <div class="contenedor">
+          <div class="title-div">
+            <h3>{{ activity.title }}</h3>
+          </div>
+          <div class="icons">
+            <div
+              v-for="p in JSON.parse(this.activity.activity).participants"
+              :key="p"
+            >
+              <i class="far fa-user"></i>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <i class="fa fa-map-marker-alt icon-red"></i>
           <span class="location">
             &nbsp;{{ JSON.parse(this.activity.activity).locations[0].address }},
             {{ JSON.parse(this.activity.activity).locations[0].province }}
           </span>
         </div>
-        <p class="card-text description">
+        <p class="description">
           {{ JSON.parse(this.activity.activity).description }}
         </p>
-        <p class="card-text points">{{ activity.points }} puntos</p>
-        <p class="card-text participants">Participantes: {{JSON.parse(this.activity.activity).participants}}</p>
+        <p class="points">{{ activity.points }} puntos</p>
+        <p class="participants">
+          Participantes: {{ JSON.parse(this.activity.activity).participants }}
+        </p>
       </div>
     </router-link>
   </div>
@@ -61,11 +75,15 @@ export default defineComponent({
   border-radius: 5px;
 }
 
-.title,
-.points .participants {
+.points {
   font-family: "Quicksand", sans-serif;
   font-size: 18px;
   color: #464646;
+}
+
+.participants {
+  display: flex;
+  gap: 4px;
 }
 
 .location {
@@ -78,5 +96,27 @@ export default defineComponent({
   font-family: "Quicksand", sans-serif;
   font-size: 14px;
   color: #464646;
+}
+
+.contenedor {
+  position: relative;
+  width: 369px; /* Ancho de tu contenedor */
+  height: 60px; /* Alto de tu contenedor */
+}
+
+.title-div {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.icons {
+  position: absolute;
+  top: 20px;
+  right: 5px;
+  display: flex;
+}
+
+.fa-user {
+  margin-left: -3px;
 }
 </style>

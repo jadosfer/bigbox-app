@@ -116,6 +116,6 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 /* Estilos */
 </style>

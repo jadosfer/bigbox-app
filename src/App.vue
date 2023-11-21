@@ -7,16 +7,25 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import '@fortawesome/fontawesome-free/css/all.css';
+import "@fortawesome/fontawesome-free/css/all.css";
 
 export default defineComponent({
-  name: "App"
+  name: "App",
 });
 </script>
 
 <style>
+@font-face {
+  font-family: "Quicksand";
+  src: url("~@/assets/fonts/Quicksand-Regular.ttf") format("truetype");
+}
+
+:root {
+  --Gray-1: #464646;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Quicksand", sans-serif;
   margin: 0;
   padding: 0;
 }

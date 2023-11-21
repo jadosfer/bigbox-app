@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import ActivitiesView from "@/views/ActivitiesView.vue";
 import ActivityDetailView from "@/views/ActivityDetailView.vue";
+import HelloWorld from "@/views/HelloWorld.vue"
 
 const routes: Array<RouteRecordRaw> = [
+  { path: "/", name: "HelloWorld", component: HelloWorld },
   {
     path: "/activities",
     name: "Activities",

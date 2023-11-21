@@ -4,9 +4,8 @@
       <activity-card
         v-for="activity in activities"
         :key="activity.id"
-        :activity="activity"
-        class="col-md-4"
-      ></activity-card>
+        :activity="activity"       
+      />
     </div>    
   </div>
 </template>
