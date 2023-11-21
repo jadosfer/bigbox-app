@@ -7,7 +7,11 @@
           to="/activities"
           style="text-decoration: none; color: inherit"
         >
-          <img class="arrow-icon" src="@/assets/icons/arrow-icon.svg" alt="arrow" />          
+          <img
+            class="arrow-icon"
+            src="@/assets/icons/arrow-icon.svg"
+            alt="arrow"
+          />
         </router-link>
         <ActivityCarousel :imageArray="imgArray" />
         <InfoIncluded :activity="activity" />
@@ -31,7 +35,7 @@ export default defineComponent({
   components: {
     ActivityDetail,
     ActivityCarousel,
-    InfoIncluded
+    InfoIncluded,
   },
   setup() {
     const route = useRoute();
@@ -68,7 +72,7 @@ export default defineComponent({
 <style scoped>
 .container {
   display: flex;
-  width: 100%;  
+  width: 100%;
 }
 
 .left-half {
@@ -97,11 +101,11 @@ export default defineComponent({
 }
 
 .image {
-  max-width: 100%;
+  width: 100%;
   margin-top: 200px;
 }
 
-.arrow-icon {  
+.arrow-icon {
   margin-left: -300px;
 }
 </style>
