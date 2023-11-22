@@ -99,39 +99,26 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Estilos para centrar los elementos horizontalmente */
 .pagination {
   display: flex;
   list-style: none;
   padding-left: 0;
-  justify-content: center; /* Centrar los elementos horizontalmente */
+  justify-content: center;
 }
 
 .pagination .page-item {
   display: inline-block;
-  margin-right: 5px; /* Espaciado entre elementos (opcional) */
+  margin-right: 5px;
 }
-
-/* Estilo para los enlaces no activos */
-/* .pagination .page-link {
-  color: black; 
-  text-decoration: none;
-  margin: 0 5px; 
-  font-size: 18px;
-  font-family: "Quicksand", sans-serif;
-  padding: 8px 8px; 
-  border: 1px solid #fff;
-  border-radius: 100%; 
-} */
 
 .page-link {
   border: 3px solid #fff;
   color: black;
-  background-color: #fff; /* Color de fondo del círculo */
-  text-decoration: none; /* Eliminar subrayado del enlace */
+  background-color: #fff; 
+  text-decoration: none; 
   display: inline-block;
-  line-height: 0.5 !important;
-  font-size: 18px; /* Tamaño de fuente para los números */
+  line-height: 0.5;
+  font-size: 18px;
   font-family: "Quicksand", sans-serif;
   border: 5px solid #fff;
   padding: 8px 8px;
@@ -142,20 +129,20 @@ export default defineComponent({
 .next-link,
 .prev-link {
   border: 3px solid #ff6c5e;
-  color: white !important; /* Color del texto */
-  background-color: #ff6c5e; /* Color de fondo del círculo */
-  text-decoration: none; /* Eliminar subrayado del enlace */
-  display: inline-block; /* Permitir que el contenido defina el tamaño */
-  line-height: 0.5 !important;
-  font-size: 18px; /* Tamaño de fuente para los números */
+  color: white;
+  background-color: #ff6c5e; 
+  text-decoration: none; 
+  display: inline-block;
+  line-height: 0.5;
+  font-size: 18px;
   font-family: "Quicksand", sans-serif;
   margin-left: 10px;
   margin-right: 10px;
 }
 
 .result-text {
-  text-align: center; /* Alinear el texto al centro */
-  color: #bdbdbd; /* Color de texto gris claro */
+  text-align: center;
+  color: #bdbdbd;
   margin-top: 10px;
   margin-left: 300px;
 }

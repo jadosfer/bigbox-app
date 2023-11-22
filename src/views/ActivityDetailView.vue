@@ -18,23 +18,22 @@
         <div class="title">
           <h3>Otras actividades similares:</h3>
         </div>
-        <SimilarActivities :details="details" :activity="activity" />
+        <SimilarActivities :activities="activities" />
       </div>
       <div class="right-half">
-        <ActivityDetail :details="details" :activity="activity" />
+        <ActivityDetail :details="activityDetails" :activity="activity" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { defineComponent } from "vue";
 import ActivityDetail from "../components/ActivityDetail.vue";
 import InfoIncluded from "../components/InfoIncluded.vue";
 import SimilarActivities from "../components/SimilarActivities.vue";
 import ActivityCarousel from "../components/ActivityCarousel.vue";
-import { fetchActivityDetails } from "../api/activities";
+import store from "@/store/store";
 
 export default defineComponent({
   components: {
@@ -43,34 +42,32 @@ export default defineComponent({
     InfoIncluded,
     SimilarActivities,
   },
-  setup() {
-    const route = useRoute();
-    const details = ref({});
-    const activity = ref({});
-    const imgArray = ref<string[]>([]);
-
-    const fetchDetails = async (id: number) => {
-      try {
-        const data = await fetchActivityDetails(id);
-        details.value = data;
-        if (data.activity) {
-          activity.value = JSON.parse(data.activity);
-          imgArray.value = JSON.parse(data.activity).image;
-        }
-      } catch (error) {
-        // Manejo de errores
+  beforeMount() {
+    let id = this.$route.params.id;
+    if (Array.isArray(id)) {
+      id = id[0];
+    }
+    store.dispatch("fetchActivityDetails", { id: id });
+  },
+  computed: {
+    activities(): any[] {
+      return store.state.activities;
+    },
+    activityDetails(): any {
+      return store.state.activityDetails;
+    },
+    activity(): any {
+      if (this.activityDetails && this.activityDetails.activity) {
+        return JSON.parse(this.activityDetails.activity);
       }
-    };
-
-    onMounted(async () => {
-      let id = route.params.id;
-      if (Array.isArray(id)) {
-        id = id[0];
+      return null;
+    },
+    imgArray(): string[] {
+      if (this.activityDetails && this.activityDetails.activity) {
+        return JSON.parse(this.activityDetails.activity).image;
       }
-      await fetchDetails(parseInt(id));
-    });
-
-    return { route, details, activity, imgArray };
+      return [];
+    }
   },
 });
 </script>
@@ -87,7 +84,7 @@ export default defineComponent({
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 50%; /* Establece el ancho máximo */
+  max-width: 50%;
   margin-top: 35px;
   margin-bottom: 50px;
   margin-left: 50px;
@@ -97,6 +94,7 @@ export default defineComponent({
   flex: 1;
   padding: 20px;
   margin-top: 30px;
+  max-height: 800px;
 }
 
 .back-link {
@@ -112,7 +110,7 @@ export default defineComponent({
 }
 
 .arrow-icon {
-  margin-left: -300px;
+  margin-left: -330px;
 }
 
 .title {
@@ -120,6 +118,5 @@ export default defineComponent({
   margin-top: 80px;
   margin-bottom: 20px;
   font-size: 24px;
-  
 }
 </style>

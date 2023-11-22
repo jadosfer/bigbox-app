@@ -1,8 +1,11 @@
 <template>
-  <div class="container">
+  <div v-if="filteredActivities.length > 0" class="container">    
     <div class="activity-list">
-      <div v-for="i in activity.image" :key="i">
-        <activity-card :data="activity" :activity="activity" />
+      <div v-for="activity in filteredActivities" :key="activity.id">        
+        <activity-card
+          :data="activity"
+          :activity="JSON.parse(activity.activity)"
+        />
       </div>
     </div>
   </div>
@@ -14,14 +17,23 @@ import ActivityCard from "./ActivityCard.vue";
 
 export default defineComponent({
   props: {
-    activity: {
-      type: Object as PropType<any>,
+    activities: {
+      type: Array as PropType<any[]>,
       required: true,
     },
   },
   components: {
     ActivityCard,
   },
+  computed: {
+    filteredActivities() {
+      if (this.activities) {
+        return this.activities.slice(0, 3);
+      } else {
+        return [];
+      }
+    }
+  }
 });
 </script>
 

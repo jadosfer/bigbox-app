@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import ActivitiesView from "@/views/ActivitiesView.vue";
 import ActivityDetailView from "@/views/ActivityDetailView.vue";
-import HelloWorld from "@/views/HelloWorld.vue"
+import Home from "@/views/Home.vue"
 
 const routes: Array<RouteRecordRaw> = [
-  { path: "/", name: "HelloWorld", component: HelloWorld },
+  { path: "/", name: "Home", component: Home },
   {
     path: "/activities",
     name: "Activities",
@@ -15,10 +15,6 @@ const routes: Array<RouteRecordRaw> = [
     name: "ActivityDetail",
     component: ActivityDetailView,
     props: true,
-  },
-  {
-    path: "/",
-    redirect: "/activities", // Redirecciona a /activities por defecto
   },
 ];
 

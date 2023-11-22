@@ -1,5 +1,5 @@
 <template>
-  <div class="conten">
+  <div v-if="activity" class="conten">
     <div class="">
       <div class="content-title">
         <h3>¿Qué incluye?</h3>

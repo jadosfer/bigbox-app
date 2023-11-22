@@ -1,8 +1,6 @@
 <template>
   <div>
-    <ActivityList
-      :activities="displayedActivities"      
-    />
+    <ActivityList :activities="activities" />
     <ActivityPaginator
       v-if="dataLoaded"
       @call-goToPage="goToPage"
@@ -16,106 +14,82 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { defineComponent } from "vue";
 import ActivityList from "../components/ActivityList.vue";
 import ActivityPaginator from "../components/ActivityPaginator.vue";
-import { fetchActivities, fetchHeader } from "../api/activities";
+import store from "@/store/store";
 
 export default defineComponent({
   components: {
     ActivityList,
     ActivityPaginator,
+  },  
+  data() {
+    return {
+      maxPages: 7,
+      pageSize: 9,
+    };
   },
-  setup() {
-    const pageSize = 9;
-    const maxPages = 7;
-    const currentPage = ref(1);
-    const totalCount = ref(0);
-    const activities = ref([]);
+  beforeMount() {
+    store.dispatch("fetchActivities", { page: 1, pageSize: this.pageSize });
+    store.dispatch("fetchHeader");
+  },  
+  computed: {
+    currentPage(): number {
+      return store.state.currentPage;
+    },
+    totalCount(): number {
+      return store.state.totalCount;
+    },
+    activities(): any[] {
+      return store.state.activities;
+    },
+    totalPages(): number {
+      return Math.ceil((this.totalCount as number) / (this.pageSize as number));
+    },
+    pagesToShow(): number[] {
+      const halfMaxPages = Math.floor((this.maxPages as number) / 2);
+      let start = Math.max(1, (this.currentPage as number) - halfMaxPages);
+      let end = start + (this.maxPages as number) - 1;
 
-    const totalPages = computed(() => Math.ceil(totalCount.value / pageSize));
-
-    const fetchData = async (page: number) => {
-      try {
-        const data = await fetchActivities(page, pageSize);
-        activities.value = data;
-        dataLoaded.value = true;
-      } catch (error) {
-        // Manejo de errores
-      }
-    };
-
-    const getHeader = async () => {
-      try {
-        const data = await fetchHeader();
-        totalCount.value = data["x-total-count"];
-      } catch (error) {
-        // Manejo de errores
-      }
-    };
-
-    const displayedActivities = computed(() => {
-      return activities.value;
-    });
-
-    const pagesToShow = computed(() => {
-      const halfMaxPages = Math.floor(maxPages / 2);
-      let start = Math.max(1, currentPage.value - halfMaxPages);
-      let end = start + maxPages - 1;
-
-      if (end > totalPages.value) {
-        end = totalPages.value;
+      if (end > (this.totalPages as number)) {
+        end = this.totalPages as number;
       }
 
-      if (start > totalPages.value - maxPages) {
-        start = totalPages.value - maxPages + 1;
+      if (start > (this.totalPages as number) - (this.maxPages as number)) {
+        start = (this.totalPages as number) - (this.maxPages as number) + 1;
       }
 
       return Array.from({ length: end - start + 1 }, (_, i) => start + i);
-    });
-
-    const goToPage = (page: number) => {
-      currentPage.value = page;
-      fetchData(page);
-    };
-
-    const nextPage = () => {
-      if (currentPage.value < totalPages.value) {
-        currentPage.value++;
-        fetchData(currentPage.value);
+    },
+    dataLoaded(): boolean {
+      return store.state.dataLoaded;
+    },
+  },
+  methods: {
+    goToPage(page: number) {
+      console.log("here");
+      store.commit("setCurrentPage", page);
+      store.dispatch("fetchActivities", {
+        page: page,
+        pageSize: this.pageSize,
+      });
+    },
+    nextPage() {
+      const nextPage = this.currentPage + 1;
+      if (nextPage <= this.totalPages) {
+        this.goToPage(nextPage);
       }
-    };
-
-    const prevPage = () => {
-      if (currentPage.value > 1) {
-        currentPage.value--;
-        fetchData(currentPage.value);
+    },
+    prevPage() {
+      const prevPage = this.currentPage - 1;
+      if (prevPage >= 1) {
+        this.goToPage(prevPage);
       }
-    };
-
-    const dataLoaded = ref(false);    
-
-    onMounted(async () => {
-      await getHeader();
-      await fetchData(currentPage.value);
-    });
-
-    return {
-      maxPages,
-      pagesToShow,
-      currentPage,
-      totalPages,
-      displayedActivities,
-      totalCount,
-      goToPage,
-      nextPage,
-      prevPage,
-      dataLoaded
-    };
+    },
   },
 });
 </script>
 
 <style scoped>
-/* Estilos */
 </style>

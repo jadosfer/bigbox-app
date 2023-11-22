@@ -1,5 +1,5 @@
 <template>
-  <div class="info">
+  <div v-if="activity && details" class="info">
     <h2 class="title">{{ details.title }}</h2>
     <p>{{ activity.description }}</p>
     <div class="contenedor">
@@ -32,10 +32,10 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     activity: {
-      type: Object as () => ({
-        participants: number; // Define el tipo de dato de 'participants'
+      type: Object as () => {
+        participants: number; 
         locations: Array<any>;
-      }),
+      },
       required: true,
     },
     details: {
@@ -45,7 +45,7 @@ export default defineComponent({
   },
   computed: {
     dynamicMargin() {
-      const marginLeft = this.activity.participants*12
+      const marginLeft = this.activity.participants * 12;
       return `${marginLeft}px`;
     },
   },
@@ -58,7 +58,7 @@ export default defineComponent({
 }
 .title {
   font-family: Quicksand;
-  font-size: 30px;  
+  font-size: 30px;
   color: var(--Gray-1, #464646);
 }
 .contenedor {
@@ -79,7 +79,7 @@ export default defineComponent({
   display: flex;
 }
 .points {
-  color: var(--Gray-1);  
+  color: var(--Gray-1);
   font-family: Quicksand;
   font-size: 24px;
 }

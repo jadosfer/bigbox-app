@@ -29,7 +29,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Estilos para el componente Activities.vue */
 .activity-list {
   display: flex;
   flex-wrap: wrap;

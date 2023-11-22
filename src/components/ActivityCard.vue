@@ -1,6 +1,6 @@
 <template>
-  <div class="activity-item" > 
-    <router-link v-if="activity.locations"
+  <div v-if="data" @click="redirectToActivityDetail" class="activity-item">
+    <router-link
       :to="{ name: 'ActivityDetail', params: { id: data.id } }"
       style="text-decoration: none; color: inherit"
     >
@@ -28,13 +28,13 @@
           {{ activity.description }}
         </p>
         <p class="points">{{ data.points }} puntos</p>
-        <p class="participants">Participantes: {{ activity.participants }}</p>
       </div>
     </router-link>
   </div>
 </template>
 
 <script lang="ts">
+import store from "@/store/store";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -47,23 +47,27 @@ export default defineComponent({
       required: true,
     },
     activity: {
-      type: Object as () => {        
+      type: Object as () => {
         image: [];
       },
       required: true,
     },
-  },  
-  // computed: {
-  //   imageSrc(): string {
-  //     return activity.image[0];
-  //   },
-  // },
+  },
+  methods: {
+    redirectToActivityDetail() {
+      store.dispatch("fetchActivityDetails", { id: this.data.id });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    },
+  },
 });
 </script>
 
 <style scoped>
 .activity-item {
-  width: calc(33.33% - 20px);
+  width: calc(30vw - 20px);
   margin: 10px;
   border-radius: 30px;
 }

@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- Barra de navegación  -->
     <router-view></router-view>
   </div>
 </template>
